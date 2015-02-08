@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "MoviesViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -16,7 +16,52 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    MoviesViewController *mvc = [[MoviesViewController alloc] initWithMovieType:@"BoxOffice"];
+    UINavigationController *nmvc = [[UINavigationController alloc] initWithRootViewController: mvc];
+   
+    nmvc.tabBarItem.title = @"Box Office";
+    nmvc.tabBarItem.image = [UIImage imageNamed:@"films"];
+    
+    MoviesViewController *mvcdvd = [[MoviesViewController alloc] initWithMovieType:@"DVD"];
+    UINavigationController *nmvcdvd = [[UINavigationController alloc] initWithRootViewController: mvcdvd];
+ 
+    nmvcdvd.tabBarItem.title = @"DVD";
+    nmvcdvd.tabBarItem.image = [UIImage imageNamed:@"television"];
+    // Configure the tab bar controller with the two navigation controllers
+    
+    nmvc.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    nmvc.navigationBar.barTintColor = [UIColor colorWithRed:0.0f green:0.0f blue:90.0f/255.0f alpha:0.5];
+ 
+    [nmvc.navigationBar setTranslucent:YES];
+    
+    nmvcdvd.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    nmvcdvd.navigationBar.barTintColor = [UIColor colorWithRed:0.0f green:0.0f blue:90.0f/255.0f alpha:0.5];
+    nmvcdvd.navigationBar.alpha = 0.4;
+    [nmvcdvd.navigationBar setTranslucent:YES];
+    
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController.tabBar.barTintColor = [UIColor colorWithRed:0.0f green:0.0f blue:90.0f/255.0f alpha:0.5];
+    
+    tabBarController.viewControllers = @[nmvc, nmvcdvd];
+
+    
+    
+    
+    self.window.rootViewController = tabBarController;
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    
+    
+    
+    
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 
